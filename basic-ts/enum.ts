@@ -34,6 +34,6 @@ enum sexEnum {
   FEMAEL = "FEMALE",
   ETC = "ETC",
 }
-
-const sex: "MALE" | "FEMALE" | "ETC" = "MALE";
+type Hi = "MALE" | "FEMALE" | "ETC";
+const sex: Hi = "MALE";
 const sex2: sexEnum = sexEnum.MALE;

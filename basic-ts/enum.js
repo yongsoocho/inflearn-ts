@@ -1,3 +1,4 @@
+"use strict";
 // 성별, 부서코드, 카테고리, ...
 var categoryEnum;
 (function (categoryEnum) {
@@ -5,7 +6,7 @@ var categoryEnum;
     categoryEnum["K"] = "K";
     categoryEnum["S"] = "S";
 })(categoryEnum || (categoryEnum = {}));
-var category = categoryEnum.K;
+const category = categoryEnum.K;
 // 웹 앱
 // ---기준선
 // 서버
@@ -25,3 +26,12 @@ function cate(category) {
     }
 }
 cate(category);
+// 리터럴 타입
+var sexEnum;
+(function (sexEnum) {
+    sexEnum["MALE"] = "MALE";
+    sexEnum["FEMAEL"] = "FEMALE";
+    sexEnum["ETC"] = "ETC";
+})(sexEnum || (sexEnum = {}));
+const sex = "MALE";
+const sex2 = sexEnum.MALE;

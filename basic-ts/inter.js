@@ -1,5 +1,5 @@
 "use strict";
-var man = {
+const man = {
     name: "yongsoo",
     age: 25,
     city: "seoul",

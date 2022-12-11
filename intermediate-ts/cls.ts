@@ -34,7 +34,7 @@ class UserInfo {
   }
 }
 
-const user = new UserInfo("용수", 25, "01011112222");
+const user: UserInfo = new UserInfo("용수", 25, "01011112222");
 // user.phone = "il san";
 user.age = -25;
 console.log(user.name, user.age, user.phone);

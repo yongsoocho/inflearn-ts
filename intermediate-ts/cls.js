@@ -1,3 +1,4 @@
+"use strict";
 class UserInfo {
     constructor(name, age, phone) {
         this.name = name;

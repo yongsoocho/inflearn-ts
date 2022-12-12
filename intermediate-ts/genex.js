@@ -1,3 +1,4 @@
+"use strict";
 // extends  1 제한 안전성 2 보장
 // 1
 function prt(params, params2) {
@@ -16,7 +17,7 @@ function execute(params) {
     params.hi("yongsoo");
 }
 execute({
-    hi: function (name) {
+    hi(name) {
         console.log("hi!", name);
-    }
+    },
 });

@@ -1,3 +1,4 @@
+"use strict";
 // function printType(params: any) {
 //   console.log(typeof params);
 // }

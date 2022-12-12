@@ -1,5 +1,6 @@
+"use strict";
 // 1. union 합집합 | (OR)
-var nameOrAge;
+let nameOrAge;
 nameOrAge = "yongsoo";
 nameOrAge = 25;
 function prtUnion(params) {

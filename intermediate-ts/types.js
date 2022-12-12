@@ -1,3 +1,4 @@
+"use strict";
 function login(params) {
     // 유저가 .. 로그인?
     console.log(params);

@@ -1,3 +1,4 @@
+"use strict";
 // interface IName {
 //   name: string;
 // }

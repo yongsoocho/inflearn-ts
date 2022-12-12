@@ -1,17 +1,22 @@
-// 1. 데코레이터 = 함수
-function InitDeco(constructor: any) {
-  console.log(constructor, "InitDeco");
+// 1. 데코레이터는 함수다
+// 4. contructor -> class 안의 데이터를 조작, 관리, 추가 , 삭제 등... 할 수 있겠다
+function Controller(constructor: Function) {
+  console.log("init class on! :", constructor);
 }
 
-// 2. 데코레이터는 class(자체, 필드, 메소드...) 와 함께 쓴다
-@InitDeco
+// 2. 데코레이터는 class(그 자체, 멤버 변수, 메소드 ..) 와 함께 쓴다
+@Controller
 class ExampleController {
-  constructor() {
-    console.log("Example Class 생성자");
-  }
+  constructor() {}
+
+  getReq() {}
+
+  postReq() {}
+
+  putReq() {}
+
+  //.....
 }
 
-// 3. 데코레이터는 인스턴스가 없어도 런타임에서 실행, 데코레이터는 정의를 추적
-// const something = new ExampleClass();
-
-// 4. 클래스 data handling .. 정보 추가 .. 등등 유연한
+// 3. 데코레이터는 클래스 정의에 붙어서 호출된다 -> 런타임 호출 -> 인스턴스가 없어도 호출
+// new ExampleClass()

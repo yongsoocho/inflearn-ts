@@ -1,22 +1,38 @@
 // 1. 데코레이터는 함수다
-// 4. contructor -> class 안의 데이터를 조작, 관리, 추가 , 삭제 등... 할 수 있겠다
 function Controller(constructor: Function) {
-  console.log("init class on! :", constructor);
+  console.log("Controller : ", constructor);
 }
 
-// 2. 데코레이터는 class(그 자체, 멤버 변수, 메소드 ..) 와 함께 쓴다
+function Get(params: any): any {
+  console.log("[GET] ", params);
+}
+
+function Post(params: any): any {
+  console.log("[GET] ", params);
+}
+
+function Column(params: any): any {
+  console.log("Column !!", params);
+}
+
+// 2. 데코레이터는 무조건 class 와 만 같이쓴다. (내부 외부, 멤버 변수, 메소드, 파라미터...)
 @Controller
 class ExampleController {
-  constructor() {}
+  @Column("email")
+  private _email: string;
 
+  constructor(email: string) {
+    this._email = email;
+  }
+
+  @Get("/api/v1/user")
   getReq() {}
 
+  @Post("/api/v1/board")
   postReq() {}
-
-  putReq() {}
-
-  //.....
 }
 
-// 3. 데코레이터는 클래스 정의에 붙어서 호출된다 -> 런타임 호출 -> 인스턴스가 없어도 호출
-// new ExampleClass()
+// 3. 런타임에 클래스에 붙어서 실행되는 함수 = 데코레이터 -> @ -> new Class() 인스턴스화 없이 실행
+// new ExampleClass();
+
+// 4. 유추 -> 뭔가 데코레이터에서 함수 안에 데이터를 조작할 수 있을거 같다..

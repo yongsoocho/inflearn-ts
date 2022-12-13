@@ -2,15 +2,12 @@
 // g ----> f(g(x)) , f: 데코레이터 팩토리 (목적: 인자전달, param 전달)
 
 // 1. 데코레이터는 함수다
-function Controller(constructor: any): any {
-  // console.log("Controller : ", constructor);
-  // return (
-  //   constructor: Function,
-  //   propertyKey: string,
-  //   descriptor: PropertyDescriptor
-  // ) => {
-  //   console.log(constructor);
-  // };
+function Controller(constructor: { new (email: string): any }): any {
+  return class extends constructor {
+    _email = "deco@inflearn.com";
+    _name = "yongsoo";
+    _age = 25;
+  };
 }
 
 function Get(params: any): any {
@@ -33,41 +30,45 @@ function Column(params: any): any {
 }
 
 function UseGuard(): any {
-  // console.log("UseGuard Factory : ");
-  // return (
-  //   constructor: Function,
-  //   propertyKey: string,
-  //   descriptor: PropertyDescriptor
-  // ) => {
-  //   console.log("UseGuard deco Func : ", constructor, propertyKey, descriptor);
-  // };
+  return (
+    constructor: Function,
+    propertyKey: string,
+    descriptor: PropertyDescriptor
+  ) => {
+    console.log("UseGuard deco Func : ", constructor, propertyKey, descriptor);
+  };
 }
 
 // 2. 데코레이터는 무조건 class 와 만 같이쓴다. (내부 외부, 멤버 변수, 메소드, 파라미터...)
-@Controller("/api/v1")
+@Controller
 class ExampleController {
-  @Column("email")
+  // @Column("email")
   private _email: string;
 
   constructor(email: string) {
     this._email = email;
   }
 
-  @Get("/user")
+  // @Get("/user")
   getReq() {
     console.log("getReq method process!");
   }
 
   // Factory { f(g(x)) 여기서 f 역할, g deco func } -> top to bottom
   // deco func bottom to top
-  @Post("/board")
-  @UseGuard()
+  // @Post("/board")
+  // @UseGuard()
   postReq() {
     console.log("postReq method process!");
+  }
+
+  @UseGuard()
+  get email(): string {
+    return this._email;
   }
 }
 
 // 3. 런타임에 클래스에 붙어서 실행되는 함수 = 데코레이터 -> @ -> new Class() 인스턴스화 없이 실행
-// new ExampleClass();
+// console.log(new ExampleController("example@inflearn.com"));
 
 // 4. 유추 -> 뭔가 데코레이터에서 함수 안에 데이터를 조작할 수 있을거 같다..

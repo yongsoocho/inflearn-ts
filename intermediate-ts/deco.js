@@ -8,21 +8,21 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 // 1. 데코레이터는 함수다
 function Controller(constructor) {
-    // console.log("Controller : ", constructor);
-    // return (
-    //   constructor: Function,
-    //   propertyKey: string,
-    //   descriptor: PropertyDescriptor
-    // ) => {
-    //   console.log(constructor);
-    // };
+    return class extends constructor {
+        constructor() {
+            super(...arguments);
+            this._email = "deco@inflearn.com";
+            this._name = "yongsoo";
+            this._age = 25;
+        }
+    };
 }
 function Get(params) {
     // console.log("[GET] ", params);
 }
 function Post(params) {
     console.log("[POST] deco deci Factory : ", params);
-    return function (target, propertyKey, descriptor) {
+    return (target, propertyKey, descriptor) => {
         console.log("[POST] deco deco Func : ", target, propertyKey, descriptor);
         target.getReq();
         target[propertyKey]();
@@ -32,43 +32,36 @@ function Column(params) {
     // console.log("Column !!", params);
 }
 function UseGuard() {
-    // console.log("UseGuard Factory : ");
-    // return (
-    //   constructor: Function,
-    //   propertyKey: string,
-    //   descriptor: PropertyDescriptor
-    // ) => {
-    //   console.log("UseGuard deco Func : ", constructor, propertyKey, descriptor);
-    // };
+    return (constructor, propertyKey, descriptor) => {
+        console.log("UseGuard deco Func : ", constructor, propertyKey, descriptor);
+    };
 }
 // 2. 데코레이터는 무조건 class 와 만 같이쓴다. (내부 외부, 멤버 변수, 메소드, 파라미터...)
-var ExampleController = /** @class */ (function () {
-    function ExampleController(email) {
+let ExampleController = class ExampleController {
+    constructor(email) {
         this._email = email;
     }
-    ExampleController.prototype.getReq = function () {
+    // @Get("/user")
+    getReq() {
         console.log("getReq method process!");
-    };
+    }
     // Factory { f(g(x)) 여기서 f 역할, g deco func } -> top to bottom
     // deco func bottom to top
-    ExampleController.prototype.postReq = function () {
+    // @Post("/board")
+    // @UseGuard()
+    postReq() {
         console.log("postReq method process!");
-    };
-    __decorate([
-        Column("email")
-    ], ExampleController.prototype, "_email");
-    __decorate([
-        Get("/user")
-    ], ExampleController.prototype, "getReq");
-    __decorate([
-        Post("/board"),
-        UseGuard()
-    ], ExampleController.prototype, "postReq");
-    ExampleController = __decorate([
-        Controller("/api/v1")
-    ], ExampleController);
-    return ExampleController;
-}());
+    }
+    get email() {
+        return this._email;
+    }
+};
+__decorate([
+    UseGuard()
+], ExampleController.prototype, "email", null);
+ExampleController = __decorate([
+    Controller
+], ExampleController);
 // 3. 런타임에 클래스에 붙어서 실행되는 함수 = 데코레이터 -> @ -> new Class() 인스턴스화 없이 실행
-// new ExampleClass();
+// console.log(new ExampleController("example@inflearn.com"));
 // 4. 유추 -> 뭔가 데코레이터에서 함수 안에 데이터를 조작할 수 있을거 같다..

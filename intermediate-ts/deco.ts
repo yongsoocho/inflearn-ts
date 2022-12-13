@@ -25,18 +25,21 @@ function Post(params: any): any {
 }
 
 function Column(params: any): any {
-  // console.log("Column !!", params);
+  return (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {
+    console.log(target, "C target"); // this
+    console.log(propertyKey, "C pro"); // _email
+    console.log(descriptor, "C des"); // undefined
+  };
 }
 
 function UseGuard(): any {
-  // console.log("UseGuard Factory : ");
-  // return (
-  //   constructor: Function,
-  //   propertyKey: string,
-  //   descriptor: PropertyDescriptor
-  // ) => {
-  //   console.log("UseGuard deco Func : ", constructor, propertyKey, descriptor);
-  // };
+  return (
+    constructor: Function,
+    propertyKey: string,
+    descriptor: PropertyDescriptor
+  ) => {
+    console.log("UseGuard deco Func : ", constructor, propertyKey, descriptor);
+  };
 }
 
 // 2. 데코레이터는 무조건 class 와 만 같이쓴다. (내부 외부, 멤버 변수, 메소드, 파라미터...)
@@ -60,6 +63,15 @@ class ExampleController {
   // @UseGuard()
   postReq() {
     console.log("postReq method process!");
+  }
+
+  @UseGuard()
+  get email(): string {
+    return this._email;
+  }
+
+  set email(newEmail: string) {
+    this._email = newEmail;
   }
 }
 

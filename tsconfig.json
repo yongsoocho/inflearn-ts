@@ -101,5 +101,6 @@
     "skipLibCheck": true /* Skip type checking all .d.ts files. */
   },
   "include": ["job/*.ts"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
+  "extends": "@tsconfig/node16/tsconfig.json"
 }
